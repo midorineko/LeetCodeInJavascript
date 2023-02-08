@@ -21,13 +21,14 @@ var lengthOfLongestSubstring = function(s) {
         while(map[rightChar] > 1){
             //sets left character using wStart to find which character we currently are at in the start of the sliding window.
             leftChar = s[wStart];
-            //since we are inside the wile we know there is a dupe because the current character we are on is 2.
+            //since we are inside the wile we know there is a dupe because the current has value is 2.
             //if the curernt starting character isn't great than 1 we know that this isn't the dupe and we have to keep sliding the start of the window until we get to the dupe
             if(map[leftChar] > 1){
                 //if the left character has a value of 2 then we are on the dupe. We subtract one because the value at the end of the window is still there.
                 map[leftChar]--;
             }else{
                 //else the left character is one and the dupe is farther into the window from the start and we just need to delete this value from the hash.
+                //Shrinking the hash.
                 delete map[leftChar];
             }
             //increments wStart which needs to be done no matter if character is deleted or not.
@@ -36,6 +37,7 @@ var lengthOfLongestSubstring = function(s) {
         }
         //use this to find out if our length is greater than the current max length and sets it if it is.
         //by subtracting the end position from the start position we get the current length. We add one because they are indexes which start at 0 and we want to start at 1.
+        //the hash is only used to keep track of dupes, wEnd and wStart are out positions in the current string.
         max = Math.max(max, (wEnd - wStart) + 1);
     }
     return max
